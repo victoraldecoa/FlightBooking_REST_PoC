@@ -14,11 +14,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  * REST Web Service
  *
- * @author aldecoa
+ * @author aldecoa & alegeo
  */
 @Path("service")
 public class ServiceResource {
@@ -38,8 +39,9 @@ public class ServiceResource {
      */
     @GET
     @Produces("application/xml")
+    //@Produces(MediaType.APPLICATION_XML)
     public String getXml() {
-        return "<H1>Get some rest!!!!</H1>";
+        return "<H1>It is working!!!!</H1>";
     }
 
     /**
