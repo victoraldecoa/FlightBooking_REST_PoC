@@ -18,26 +18,25 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Request;
 
 /**
  * REST Web Service
  *
  * @author aldecoa & alegeo
  */
-@Path("bookings")
+@Path("/bookings")
 public class BookingsResource {
 
     @Context
-    private UriInfo context;
+    private UriInfo uriInfo;
+    @Context
+    private Request request;
 
     /**
-     * Creates a new instance of ServiceResource
-     */
-    public BookingsResource() {
-    }
-
-    /**
-     * Retrieves representation of an instance of com.flightservice.ServiceResource
+     * Retrieves representation of an instance of
+     * com.flightservice.ServiceResource
+     *
      * @return an instance of java.lang.String
      */
     @GET
@@ -46,37 +45,16 @@ public class BookingsResource {
     public List<BookedFlight> getXml() {
         List<BookedFlight> bookings = new ArrayList<BookedFlight>();
         bookings.addAll(BookingDBMock.getInstance().getModel().values());
-        
+
         return bookings;
     }
 
-    /**
-     * PUT method for updating or creating an instance of ServiceResource
-     * @param content representation for the resource
-     * @return an HTTP response with content of the updated or created resource.
-     */
-    @PUT
-    @Consumes("application/xml")
-    public void putXml(String content) {
-    }
-    
-    /**
-     * POST method for updating or creating an instance of ServiceResource
-     * @param content representation for the resource
-     * @return an HTTP response with content of the updated or created resource.
-     */
-    @POST
-    @Consumes("application/xml")
-    public void postXml(String content) {
-    }
-    
-        /**
-     * PUT method for updating or creating an instance of ServiceResource
-     * @param content representation for the resource
-     * @return an HTTP response with content of the updated or created resource.
-     */
-    @DELETE
-    @Consumes("application/xml")
-    public void deleteXml() {
+    // Defines that the next path parameter after todos is
+    // treated as a parameter and passed to the BookingResources
+    // Allows to type http://localhost:8080/FlightBooking/webresources/bookings/564231
+    // 1 will be treaded as parameter todo and passed to TodoResource
+    @Path("{booking}")
+    public BookingResource getBooking(@PathParam("booking") String id) {
+        return new BookingResource(uriInfo, request, id);
     }
 }
