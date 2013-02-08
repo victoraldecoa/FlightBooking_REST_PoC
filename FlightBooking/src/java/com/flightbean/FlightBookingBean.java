@@ -1,4 +1,5 @@
 package com.flightbean;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -10,6 +11,7 @@ public class FlightBookingBean {
 
 	private String bookingId;
 
+        @XmlElement(name="customer")
         public Customer getCustomer() {
 		return customer;
 	}
@@ -18,6 +20,7 @@ public class FlightBookingBean {
 		this.customer = customer;
 	}
 
+        @XmlElement(name="bookingId")
 	public String getBookingId() {
 		return bookingId;
 	}
@@ -26,7 +29,7 @@ public class FlightBookingBean {
 		this.bookingId = bookingId;
 	}
 
-
+        @XmlElement(name="bookedFlight")
 	public BookedFlight[] getBookedFlight() {
 		return bookedFlight;
 	}
