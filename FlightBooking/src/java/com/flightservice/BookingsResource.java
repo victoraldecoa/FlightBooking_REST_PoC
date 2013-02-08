@@ -4,6 +4,9 @@
  */
 package com.flightservice;
 
+import com.flightbean.BookedFlight;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.PathParam;
@@ -21,8 +24,8 @@ import javax.ws.rs.core.MediaType;
  *
  * @author aldecoa & alegeo
  */
-@Path("service")
-public class ServiceResource {
+@Path("bookings")
+public class BookingsResource {
 
     @Context
     private UriInfo context;
@@ -30,7 +33,7 @@ public class ServiceResource {
     /**
      * Creates a new instance of ServiceResource
      */
-    public ServiceResource() {
+    public BookingsResource() {
     }
 
     /**
@@ -38,10 +41,13 @@ public class ServiceResource {
      * @return an instance of java.lang.String
      */
     @GET
-    @Produces("application/xml")
+    @Produces(MediaType.APPLICATION_XML)
     //@Produces(MediaType.APPLICATION_XML)
-    public String getXml() {
-        return "<H1>It is working!!!!</H1>";
+    public List<BookedFlight> getXml() {
+        List<BookedFlight> bookings = new ArrayList<BookedFlight>();
+        bookings.addAll(BookingDBMock.getInstance().getModel().values());
+        
+        return bookings;
     }
 
     /**

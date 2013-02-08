@@ -179,3 +179,4 @@ nb-configuration.xml
 *.war
 *.ear
 
+/FlightBooking/nbproject/private/
