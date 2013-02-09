@@ -21,6 +21,8 @@ public class FlightBookingAPI {
 
     private static FlightBookingAPI instance;
     private WebResource service;
+    
+    private String userToken;
 
     private FlightBookingAPI() {
         Client client = Client.create();
@@ -39,18 +41,28 @@ public class FlightBookingAPI {
     }
 
     public BookedFlight getBookingById(String id) {
-        return service.path("webresources").path("bookings/" + id).accept(MediaType.APPLICATION_XML).get(BookedFlight.class);
+        if (userToken.equals("")) {
+            return null;
+        }
+        return service.path("webresources").path("bookings/" + id).queryParam("token", userToken)
+                      .accept(MediaType.APPLICATION_XML).get(BookedFlight.class);
     }
 
     public List<BookedFlight> getBookings() {
-        return service.path("webresources").path("bookings")
+        if (userToken.equals("")) {
+            return null;
+        }
+        return service.path("webresources").path("bookings").queryParam("token", userToken)
                 .accept(MediaType.APPLICATION_XML).get(new GenericType<List<BookedFlight>>() {
         });
     }
 
     public void putBooking(BookedFlight b) {
+        if (userToken.equals("")) {
+            return;
+        }
         service.path("webresources").path("bookings")
-                .path(b.getBookingId()).accept(MediaType.APPLICATION_XML)
+                .path(b.getBookingId()).queryParam("token", userToken).accept(MediaType.APPLICATION_XML)
                 .put(ClientResponse.class, b);
     }
 
@@ -60,12 +72,33 @@ public class FlightBookingAPI {
      * @return the booked flight, with a new id
      */
     public BookedFlight postBooking(BookedFlight b) {
+        if (userToken.equals("")) {
+            return null;
+        }
+        
         return service.path("webresources").path("bookings")
+                .queryParam("token", userToken)
                 .accept(MediaType.APPLICATION_XML)
                 .post(ClientResponse.class, b).getEntity(BookedFlight.class);
     }
 
     public void deleteBooking(BookedFlight b) {
-        service.path("webresources").path("bookings/" + b.getBookingId()).delete();
+        if (userToken.equals("")) {
+            return;
+        }
+        
+        service.path("webresources").path("bookings/" + b.getBookingId()).queryParam("token", userToken).delete();
+    }
+        
+    /**
+     * Authenticate an user
+     * @param user
+     * @param password
+     * @return true if user was authorized
+     */
+    public boolean authUser(String user, String password) {
+        userToken = service.path("webresources").path("auth").queryParam("user", user).queryParam("password", password)
+                .accept(MediaType.TEXT_PLAIN).get(String.class);
+        return !userToken.equals("");
     }
 }
