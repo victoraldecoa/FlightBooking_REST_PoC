@@ -11,6 +11,8 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.representation.Form;
+import java.util.ArrayList;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -22,38 +24,43 @@ public class FlightBookingClient {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        ClientConfig config = new DefaultClientConfig();
-        Client client = Client.create(config);
-        WebResource service = client.resource(getBaseURI());
+        // get web service instance
+        FlightBookingAPI service = FlightBookingAPI.getInstance();
+        
         // Create one booking
         BookedFlight booking = new BookedFlight();
-        booking.setBookingId("1");
         booking.setDate("2013-02-08");
         booking.setItineraryId("654");
-        ClientResponse response = service.path("rest").path("bookings")
-                .path(booking.getBookingId()).accept(MediaType.APPLICATION_XML)
-                .put(ClientResponse.class, booking);
-        // Return code should be 201 == created resource
-        System.out.println(response.getStatus());
         
-        // Get the all bookings
-        System.out.println(service.path("webresources").path("bookings")
-                .accept(MediaType.APPLICATION_XML).get(String.class));
-
+        System.out.println("POST a new booking:");
+        ClientResponse res = service.postBooking(booking);
+        
+        BookedFlight postedBooking = res.getEntity(BookedFlight.class);
+        System.out.println(postedBooking);
+        
         // Get the BookedFlight with id 564231
-        System.out.println(service.path("webresources").path("bookings/564231")
-                .accept(MediaType.APPLICATION_XML).get(String.class));
-                
-        // Delete BookedFlight with id 564231
-        service.path("webresources").path("bookings/564231").delete();
-        // Get the all todos, id 564231 should be deleted
-        System.out.println(service.path("webresources").path("bookings")
-                .accept(MediaType.APPLICATION_XML).get(String.class));
+        System.out.println("GET booking by id:");
+        BookedFlight bookingGet = service.getBookingById("564231");
+        
+        System.out.println(bookingGet);
+        
+        bookingGet.setDate("2013-05-05");
+        
+        System.out.println("PUT to update a booking (change of date):");
+        service.putBooking(bookingGet);
+        
+        ArrayList<BookedFlight> allBookings = new ArrayList<>(
+                                                   service.getBookings());
+        
+        System.out.println("GET all bookings:");
+        for (BookedFlight b : allBookings) {
+            System.out.print("    ");
+            System.out.println(b);
+        }
+        
+        // Delete recently created booking
+        System.out.println("DELETE recently created booking");
+        service.deleteBooking(postedBooking);
 
-
-    }
-
-    private static URI getBaseURI() {
-        return UriBuilder.fromUri("http://localhost:8080/FlightBooking").build();
     }
 }

@@ -15,6 +15,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
+import javax.ws.rs.core.Response;
+import javax.xml.bind.JAXBElement;
 
 /**
  * REST Web Service
@@ -51,5 +53,21 @@ public class BookingsResource {
     @Path("{booking}")
     public BookingResource getBooking(@PathParam("booking") String id) {
         return new BookingResource(uriInfo, request, id);
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_XML)
+    public Response postBooking(JAXBElement<BookedFlight> booking) {
+        BookedFlight c = booking.getValue();
+        return postAndGetResponse(c);
+    }
+
+    private Response postAndGetResponse(BookedFlight booking) {
+        booking = BookingDBMock.getInstance().createBooking(booking);
+        
+        //Response res = Response.created(uriInfo.getAbsolutePath()).build();
+        Response res = Response.ok(booking).build();
+
+        return res;
     }
 }

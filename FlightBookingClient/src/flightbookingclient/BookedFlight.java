@@ -37,4 +37,12 @@ public class BookedFlight {
     public void setBookingId(String bookingId) {
         this.bookingId = bookingId;
     }
+
+    @Override
+    public String toString() {
+        return "Booking id: " + bookingId + ", " +
+               "Itinerary id: " + itineraryId + ", " +
+               "Date: " + date;
+                
+    }
 }

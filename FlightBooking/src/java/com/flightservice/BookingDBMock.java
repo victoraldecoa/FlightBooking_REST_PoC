@@ -16,6 +16,8 @@ public class BookingDBMock {
 
     private static BookingDBMock instance;
     private Map<String, BookedFlight> contentProvider = new HashMap<String, BookedFlight>();
+    
+    private int counter = 564232;
 
     private BookingDBMock() {
         BookedFlight bf = new BookedFlight();
@@ -27,6 +29,14 @@ public class BookingDBMock {
 
     public Map<String, BookedFlight> getModel() {
         return contentProvider;
+    }
+    
+    public BookedFlight createBooking(BookedFlight b) {
+        b.setBookingId(String.valueOf(counter++));
+        
+        contentProvider.put(b.getBookingId(), b);
+        
+        return b;
     }
 
     public static BookingDBMock getInstance() {
