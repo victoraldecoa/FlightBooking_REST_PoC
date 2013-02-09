@@ -46,7 +46,7 @@ public class FlightBookingClient {
         
         bookingGet.setDate("2013-05-05");
         
-        System.out.println("PUT to update a booking (change of date):");
+        System.out.println("PUT to update a booking (change of date)");
         service.putBooking(bookingGet);
         
         ArrayList<BookedFlight> allBookings = new ArrayList<>(
@@ -61,6 +61,5 @@ public class FlightBookingClient {
         // Delete recently created booking
         System.out.println("DELETE recently created booking");
         service.deleteBooking(postedBooking);
-
     }
 }
