@@ -44,10 +44,10 @@ public class BookingsResource {
         return bookings;
     }
 
-    // Defines that the next path parameter after todos is
-    // treated as a parameter and passed to the BookingResources
+    // Defines that the next path parameter after bookings is
+    // treated as a parameter and passed to the BookingsResource
     // Allows to type http://localhost:8080/FlightBooking/webresources/bookings/564231
-    // 1 will be treaded as parameter todo and passed to TodoResource
+    // 564231 will be treaded as parameter booking and passed to BookingResource
     @Path("{booking}")
     public BookingResource getBooking(@PathParam("booking") String id) {
         return new BookingResource(uriInfo, request, id);
