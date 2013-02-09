@@ -20,12 +20,17 @@ public class FlightBookingClient {
         System.out.println("Press 2 if you wish to view your bookings.");
         System.out.println("Press 3 if you wish to update one of your bookings.");
         System.out.println("Press 4 if you wish to delete one of your bookings.");
+        System.out.println("Press 5 if you wish to exit the system.");
         System.out.println("Please enter your choice: ");
+
+
+
 
         Scanner input = new Scanner(System.in);
         int option = Integer.parseInt(input.next());
-        int bid = Integer.parseInt(input.next());
+        int bid;
 
+while (option!=5){
         switch (option) {
             case 1:
                 // Create a booking
@@ -51,18 +56,27 @@ public class FlightBookingClient {
                 // Update a booking
                 System.out.println("PUT to update a booking (change of date)");
                 System.out.println("Please enter the id of the booking you wish to update: ");
+                bid = Integer.parseInt(input.next());
                 BookedFlight bookingGet = service.getBookingById(String.valueOf(bid));
                 service.putBooking(bookingGet);
                 break;
             case 4:
                 // Delete a booking depeding on the booking id (bid)
                 System.out.println("DELETE one of your bookings booking");
+                bid = Integer.parseInt(input.next());
                 service.getBookingById(String.valueOf(bid));
                 BookedFlight bookedFlight_temp = new BookedFlight();
                 service.deleteBooking(bookedFlight_temp);
                 break;
+            case 5:
+                System.exit(0);
+            default:
+                System.out.println("Please choose a number between 1-5 only");        
         }
-
+        
+        System.out.println("Please enter your choice: ");
+}
+     
 
         // Get the BookedFlight with id 564231
 //        System.out.println("GET booking by id:");
