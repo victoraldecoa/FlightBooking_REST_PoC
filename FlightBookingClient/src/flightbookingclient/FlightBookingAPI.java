@@ -7,6 +7,7 @@ package flightbookingclient;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.GenericType;
+import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import java.net.URI;
 import java.util.List;
@@ -55,6 +56,18 @@ public class FlightBookingAPI {
         return service.path("webresources").path("bookings").queryParam("token", userToken)
                 .accept(MediaType.APPLICATION_XML).get(new GenericType<List<BookedFlight>>() {
         });
+    }
+    
+    public Itinerary getItinerary(String depCity, String destCity) {
+        if (userToken.equals("")) {
+            return null;
+        }
+        try {
+        return service.path("webresources").path("checkitinerary").queryParam("depCity", depCity).queryParam("destCity", destCity).queryParam("token", userToken)
+                .accept(MediaType.APPLICATION_XML).get(Itinerary.class);
+        } catch(UniformInterfaceException ex) {
+            return null;
+        }
     }
 
     public void putBooking(BookedFlight b) {

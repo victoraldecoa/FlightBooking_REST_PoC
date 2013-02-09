@@ -34,7 +34,7 @@ public class BookingsResource {
      * Retrieves representation of an instance of
      * com.flightservice.ServiceResource
      *
-     * @return an instance of java.lang.String
+     * @return a list of booked flights
      */
     @GET
     @Produces(MediaType.APPLICATION_XML)

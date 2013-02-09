@@ -41,29 +41,28 @@ public class FlightBookingClient {
             System.out.println();
         }
         
-        testAllMethods(args);
+        Itinerary i = null;
         
-        /*
-        Flight[] flights = new Flight[0];
-        while (flights.length == 0) {
+        while (i == null) {
             System.out.print("Departure city: ");
             String depCity = input.next();
 
             System.out.print("Destination city: ");
             String destCity = input.next();
             
-            flights = port.checkItinerary(depCity, destCity, token);
+            i = service.getItinerary(depCity, destCity);
             
-            if (flights.length > 0) {
+            if (i != null) {
                 System.out.println("A possible itinerary is:");
-                for (Flight flight : flights) {
-                    System.out.println("    Dep: " + flight.departureCity + "    Dest: " + flight.destinationCity);
+                for (Flight flight : i.flights) {
+                    System.out.println("    Dep: " + flight.getDepartureCity() + "    Dest: " + flight.getDestinationCity());
                 }
             } else {
                 System.out.println("No routes for these cities. Please try another.");
             }
         }
-
+        
+        /*
         float price = 0.0f;
         String date = null;
         
@@ -93,6 +92,8 @@ public class FlightBookingClient {
         }
         System.out.println("Thank you for using our services!");
         */
+        
+        testAllMethods(args);
     }
     
     /**

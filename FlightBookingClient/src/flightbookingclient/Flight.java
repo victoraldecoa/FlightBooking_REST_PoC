@@ -1,4 +1,4 @@
-package com.flightbean;
+package flightbookingclient;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
