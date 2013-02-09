@@ -1,18 +1,6 @@
 package flightbookingclient;
 
-import java.net.URI;
-
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriBuilder;
-
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.config.ClientConfig;
-import com.sun.jersey.api.client.config.DefaultClientConfig;
-import com.sun.jersey.api.representation.Form;
 import java.util.ArrayList;
-import javax.ws.rs.core.Response;
 
 /**
  *
@@ -33,9 +21,8 @@ public class FlightBookingClient {
         booking.setItineraryId("654");
         
         System.out.println("POST a new booking:");
-        ClientResponse res = service.postBooking(booking);
         
-        BookedFlight postedBooking = res.getEntity(BookedFlight.class);
+        BookedFlight postedBooking = service.postBooking(booking);
         System.out.println(postedBooking);
         
         // Get the BookedFlight with id 564231

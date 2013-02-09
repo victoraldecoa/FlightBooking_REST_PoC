@@ -41,25 +41,31 @@ public class FlightBookingAPI {
     public BookedFlight getBookingById(String id) {
         return service.path("webresources").path("bookings/" + id).accept(MediaType.APPLICATION_XML).get(BookedFlight.class);
     }
-    
+
     public List<BookedFlight> getBookings() {
         return service.path("webresources").path("bookings")
-                .accept(MediaType.APPLICATION_XML).get(new GenericType<List<BookedFlight>>() {});
+                .accept(MediaType.APPLICATION_XML).get(new GenericType<List<BookedFlight>>() {
+        });
     }
-    
+
     public void putBooking(BookedFlight b) {
         service.path("webresources").path("bookings")
                 .path(b.getBookingId()).accept(MediaType.APPLICATION_XML)
                 .put(ClientResponse.class, b);
     }
-    
-   public ClientResponse postBooking(BookedFlight b) {
+
+    /**
+     *
+     * @param b the flight to be booked (bookingId will be ignored)
+     * @return the booked flight, with a new id
+     */
+    public BookedFlight postBooking(BookedFlight b) {
         return service.path("webresources").path("bookings")
                 .accept(MediaType.APPLICATION_XML)
-                .post(ClientResponse.class, b);
+                .post(ClientResponse.class, b).getEntity(BookedFlight.class);
     }
-   
-   public void deleteBooking(BookedFlight b) {
+
+    public void deleteBooking(BookedFlight b) {
         service.path("webresources").path("bookings/" + b.getBookingId()).delete();
-   }
+    }
 }
