@@ -115,7 +115,7 @@ public class FlightBookingAPI {
         
         service.path("webresources").path("bookings/" + b.getBookingId()).queryParam("token", userToken).delete();
     }
-        
+    
     /**
      * Authenticate an user
      * @param user
