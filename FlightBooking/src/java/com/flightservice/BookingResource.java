@@ -19,7 +19,7 @@ import javax.xml.bind.JAXBElement;
 
 /**
  *
- * @author aldecoa
+ * @author aldecoa & alegeo
  */
 public class BookingResource {
 

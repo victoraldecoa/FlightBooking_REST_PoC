@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.flightservice;
 
 import com.flightbean.BookedFlight;
@@ -41,7 +37,6 @@ public class BookingsResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_XML)
-    //@Produces(MediaType.APPLICATION_XML)
     public List<BookedFlight> getXml() {
         List<BookedFlight> bookings = new ArrayList<BookedFlight>();
         bookings.addAll(BookingDBMock.getInstance().getModel().values());

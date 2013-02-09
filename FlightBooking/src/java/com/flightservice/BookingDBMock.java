@@ -10,7 +10,7 @@ import java.util.Map;
 
 /**
  *
- * @author aldecoa
+ * @author aldecoa & alegeo
  */
 public class BookingDBMock {
 

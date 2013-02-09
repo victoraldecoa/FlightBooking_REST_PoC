@@ -2,6 +2,11 @@ package com.flightbean;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ *
+ * @author aldecoa & alegeo
+ */
+
 @XmlRootElement
 public class Customer {
     private String customerId;
