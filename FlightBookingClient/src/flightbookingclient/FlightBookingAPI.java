@@ -53,10 +53,10 @@ public class FlightBookingAPI {
                 .put(ClientResponse.class, b);
     }
     
-   public ClientResponse postBooking(BookedFlight b) {
+   public BookedFlight postBooking(BookedFlight b) {
         return service.path("webresources").path("bookings")
                 .accept(MediaType.APPLICATION_XML)
-                .post(ClientResponse.class, b);
+                .post(ClientResponse.class, b).getEntity(BookedFlight.class);
     }
    
    public void deleteBooking(BookedFlight b) {
