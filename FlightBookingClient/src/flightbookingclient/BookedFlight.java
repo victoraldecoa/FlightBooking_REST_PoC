@@ -2,6 +2,11 @@ package flightbookingclient;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ *
+ * @author aldecoa & alegeo
+ */
+
 @XmlRootElement
 public class BookedFlight {
 

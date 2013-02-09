@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package flightbookingclient;
 
 import java.net.URI;
@@ -18,7 +14,7 @@ import com.sun.jersey.api.representation.Form;
 
 /**
  *
- * @author aldecoa
+ * @author aldecoa & alegeo
  */
 public class FlightBookingClient {
 
