@@ -36,7 +36,7 @@ public class FlightBookingClient {
         // Return code should be 201 == created resource
         System.out.println(response.getStatus());
         
-        // Get the all bookings
+        // Get all the bookings
         System.out.println(service.path("webresources").path("bookings")
                 .accept(MediaType.APPLICATION_XML).get(String.class));
 
@@ -46,7 +46,7 @@ public class FlightBookingClient {
                 
         // Delete BookedFlight with id 564231
         service.path("webresources").path("bookings/564231").delete();
-        // Get the all todos, id 564231 should be deleted
+        // Get the all bookings, id 564231 should be deleted
         System.out.println(service.path("webresources").path("bookings")
                 .accept(MediaType.APPLICATION_XML).get(String.class));
 
