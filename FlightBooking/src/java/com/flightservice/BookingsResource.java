@@ -65,6 +65,7 @@ public class BookingsResource {
     @POST
     @Consumes(MediaType.APPLICATION_XML)
     public Response postBooking(@QueryParam("token") String token,
+                                @QueryParam("creditCard") String creditCard,
                                 JAXBElement<BookedFlight> booking) {
         if (!AuthResource.isTokenValid(token)) {
             return null;

@@ -69,6 +69,18 @@ public class FlightBookingAPI {
             return null;
         }
     }
+    
+    public String checkAvailable(String itineraryId, String date) {
+        if (userToken.equals("")) {
+            return "";
+        }
+        try {
+        return service.path("webresources").path("checkavailable").queryParam("itineraryId", itineraryId).queryParam("date", date).queryParam("token", userToken)
+                              .accept(MediaType.TEXT_PLAIN).get(String.class);
+        } catch(UniformInterfaceException ex) {
+            return "";
+        }
+    }
 
     public void putBooking(BookedFlight b) {
         if (userToken.equals("")) {
@@ -84,12 +96,13 @@ public class FlightBookingAPI {
      * @param b the flight to be booked (bookingId will be ignored)
      * @return the booked flight, with a new id
      */
-    public BookedFlight postBooking(BookedFlight b) {
+    public BookedFlight postBooking(BookedFlight b, String creditCard) {
         if (userToken.equals("")) {
             return null;
         }
         
         return service.path("webresources").path("bookings")
+                .queryParam("creditCard", creditCard)
                 .queryParam("token", userToken)
                 .accept(MediaType.APPLICATION_XML)
                 .post(ClientResponse.class, b).getEntity(BookedFlight.class);

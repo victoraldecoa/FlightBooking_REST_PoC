@@ -25,7 +25,6 @@ import javax.ws.rs.core.MediaType;
 @Path("checkitinerary")
 public class CheckItineraryResource {
 
-    public static int itineraryCount = 562;
     @Context
     private UriInfo context;
 
@@ -73,9 +72,7 @@ public class CheckItineraryResource {
         itinerary.flights.add(new Flight(depCity, "Berlin"));
         itinerary.flights.add(new Flight("Berlin", destCity));
 
-        itinerary.setId(String.valueOf(itineraryCount));
-
-        return itinerary;
+        return ItinerariesTableMock.getInstance().createItinerary(itinerary);
     }
 
     /**
