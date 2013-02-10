@@ -107,6 +107,14 @@ public class FlightBookingAPI {
                 .accept(MediaType.APPLICATION_XML)
                 .post(ClientResponse.class, b).getEntity(BookedFlight.class);
     }
+    
+    public void deleteBookingById(String id) {
+        if (userToken.equals("")) {
+            return;
+        }
+        
+        service.path("webresources").path("bookings/" + id).queryParam("token", userToken).delete();
+    }
 
     public void deleteBooking(BookedFlight b) {
         if (userToken.equals("")) {

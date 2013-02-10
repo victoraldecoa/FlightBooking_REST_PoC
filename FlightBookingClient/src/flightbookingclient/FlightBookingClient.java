@@ -38,52 +38,49 @@ public class FlightBookingClient {
             } else {
                 System.out.println("Username or password are wrong. Try again.");
             }
-
-            System.out.println();
         }
 
         int option = 0;
         int bid;
         while (option != 5) {
+            System.out.println();
             System.out.println("Press 1 if you wish to create a new booking.");
             System.out.println("Press 2 if you wish to view your bookings.");
-            System.out.println("Press 3 if you wish to update one of your bookings.");
-            System.out.println("Press 4 if you wish to delete one of your bookings.");
+            System.out.println("Press 3 if you wish to change a booking's date.");
+            System.out.println("Press 4 if you wish to cancel a booking.");
             System.out.println("Press 5 if you wish to exit the system.");
-            System.out.println("Please enter your choice: ");
+            System.out.print("Please enter your choice: ");
 
             option = Integer.parseInt(input.next());
             switch (option) {
                 case 1:
-                    // Create a booking
-                    System.out.println("POST a new booking:");
+                    // POST to create a booking
                     getNewBooking();
                     break;
                 case 2:
-                    // Get all bookings
-                    System.out.println("GET all bookings:");
+                    // GET all bookings
                     ArrayList<BookedFlight> allBookings = new ArrayList<>(
                             service.getBookings());
+                    if (allBookings.isEmpty()) {
+                        System.out.println("You don't have any bookings");
+                    }
                     for (BookedFlight b : allBookings) {
                         System.out.print("    ");
                         System.out.println(b);
                     }
                     break;
                 case 3:
-                    // Update a booking
-                    System.out.println("PUT to update a booking (change of date)");
-                    System.out.print("Please enter the id of the booking you wish to change the date: ");
-                    bid = Integer.parseInt(input.next());
-                    BookedFlight bookingGet = service.getBookingById(String.valueOf(bid));
+                    // PUT to update a booking
+                    System.out.print("Please enter the ID of the booking you wish to change the date: ");
+                    BookedFlight bookingGet = service.getBookingById(input.next());
                     System.out.print("Please enter the new date: ");
                     bookingGet.setDate(input.next());
                     service.putBooking(bookingGet);
                     break;
                 case 4:
-                    // Delete a booking depeding on the booking id (bid)
-                    System.out.print("Insert the booking ID to cancel it: ");
-                    bid = Integer.parseInt(input.next());
-                    service.deleteBooking(service.getBookingById(String.valueOf(bid)));
+                    // DELETE a booking by the id
+                    System.out.print("Please enter the ID of the booking to cancel it: ");
+                    service.deleteBookingById(input.next());
                     break;
                 case 5:
                     System.exit(0);
