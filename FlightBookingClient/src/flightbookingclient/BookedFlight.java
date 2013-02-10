@@ -6,7 +6,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author aldecoa & alegeo
  */
-
 @XmlRootElement
 public class BookedFlight {
 
@@ -40,9 +39,9 @@ public class BookedFlight {
 
     @Override
     public String toString() {
-        return "Booking id: " + bookingId + ", " +
-               "Itinerary id: " + itineraryId + ", " +
-               "Date: " + date;
-                
+        return "Booking id: " + bookingId + ", "
+                + "Itinerary id: " + itineraryId + ", "
+                + "Date: " + date;
+
     }
 }

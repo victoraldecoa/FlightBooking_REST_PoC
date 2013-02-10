@@ -38,10 +38,10 @@ public class FlightBookingClient {
             } else {
                 System.out.println("Username or password are wrong. Try again.");
             }
+            System.out.println();
         }
 
         int option = 0;
-        int bid;
         while (option != 5) {
             System.out.println();
             System.out.println("Press 1 if you wish to create a new booking.");

@@ -6,19 +6,18 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author aldecoa & alegeo
  */
-
 @XmlRootElement
 public class Flight {
+
     private String departureCity;
     private String destinationCity;
-    
+
     public Flight(String departureCity, String destinationCity) {
         this.departureCity = departureCity;
         this.destinationCity = destinationCity;
     }
-    
+
     public Flight() {
-        
     }
 
     public String getDepartureCity() {
@@ -36,6 +35,4 @@ public class Flight {
     public void setDestinationCity(String destinationCity) {
         this.destinationCity = destinationCity;
     }
-    
-    
 }

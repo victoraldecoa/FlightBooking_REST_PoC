@@ -22,7 +22,6 @@ public class FlightBookingAPI {
 
     private static FlightBookingAPI instance;
     private WebResource service;
-    
     private String userToken;
 
     private FlightBookingAPI() {
@@ -46,7 +45,7 @@ public class FlightBookingAPI {
             return null;
         }
         return service.path("webresources").path("bookings/" + id).queryParam("token", userToken)
-                      .accept(MediaType.APPLICATION_XML).get(BookedFlight.class);
+                .accept(MediaType.APPLICATION_XML).get(BookedFlight.class);
     }
 
     public List<BookedFlight> getBookings() {
@@ -57,27 +56,27 @@ public class FlightBookingAPI {
                 .accept(MediaType.APPLICATION_XML).get(new GenericType<List<BookedFlight>>() {
         });
     }
-    
+
     public Itinerary getItinerary(String depCity, String destCity) {
         if (userToken.equals("")) {
             return null;
         }
         try {
-        return service.path("webresources").path("checkitinerary").queryParam("depCity", depCity).queryParam("destCity", destCity).queryParam("token", userToken)
-                .accept(MediaType.APPLICATION_XML).get(Itinerary.class);
-        } catch(UniformInterfaceException ex) {
+            return service.path("webresources").path("checkitinerary").queryParam("depCity", depCity).queryParam("destCity", destCity).queryParam("token", userToken)
+                    .accept(MediaType.APPLICATION_XML).get(Itinerary.class);
+        } catch (UniformInterfaceException ex) {
             return null;
         }
     }
-    
+
     public String checkAvailable(String itineraryId, String date) {
         if (userToken.equals("")) {
             return "";
         }
         try {
-        return service.path("webresources").path("checkavailable").queryParam("itineraryId", itineraryId).queryParam("date", date).queryParam("token", userToken)
-                              .accept(MediaType.TEXT_PLAIN).get(String.class);
-        } catch(UniformInterfaceException ex) {
+            return service.path("webresources").path("checkavailable").queryParam("itineraryId", itineraryId).queryParam("date", date).queryParam("token", userToken)
+                    .accept(MediaType.TEXT_PLAIN).get(String.class);
+        } catch (UniformInterfaceException ex) {
             return "";
         }
     }
@@ -100,19 +99,19 @@ public class FlightBookingAPI {
         if (userToken.equals("")) {
             return null;
         }
-        
+
         return service.path("webresources").path("bookings")
                 .queryParam("creditCard", creditCard)
                 .queryParam("token", userToken)
                 .accept(MediaType.APPLICATION_XML)
                 .post(ClientResponse.class, b).getEntity(BookedFlight.class);
     }
-    
+
     public void deleteBookingById(String id) {
         if (userToken.equals("")) {
             return;
         }
-        
+
         service.path("webresources").path("bookings/" + id).queryParam("token", userToken).delete();
     }
 
@@ -120,12 +119,13 @@ public class FlightBookingAPI {
         if (userToken.equals("")) {
             return;
         }
-        
+
         service.path("webresources").path("bookings/" + b.getBookingId()).queryParam("token", userToken).delete();
     }
-    
+
     /**
      * Authenticate an user
+     *
      * @param user
      * @param password
      * @return true if user was authorized

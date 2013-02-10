@@ -15,8 +15,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class Itinerary {
+
     private String id;
-    
     @XmlElementWrapper(name = "flights")
     @XmlElement(name = "flight")
     public ArrayList<Flight> flights;
@@ -24,6 +24,7 @@ public class Itinerary {
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
