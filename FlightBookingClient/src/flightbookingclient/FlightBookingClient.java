@@ -79,7 +79,7 @@ public class FlightBookingClient {
                     break;
                 case 4:
                     // DELETE a booking by the id
-                    System.out.print("Please enter the ID of the booking to cancel it: ");
+                    System.out.print("Please enter the ID of the booking to cancel: ");
                     service.deleteBookingById(input.next());
                     break;
                 case 5:
