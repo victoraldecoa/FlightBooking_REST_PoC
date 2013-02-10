@@ -126,6 +126,10 @@ public class FlightBookingClient {
             System.out.print("    ");
             System.out.println(b);
         }
+
+        // Delete recently created booking
+        System.out.println("DELETE recently created booking");
+        service.deleteBooking(postedBooking);
     }
 
     private static void getNewBooking() {
