@@ -49,7 +49,7 @@ public class CheckAvailableResource {
         }
         
         Itinerary i = ItinerariesTableMock.getInstance().getById(itineraryId);
-        if (i == null || !date.equals("2013-02-06")) {
+        if (i == null || !date.equals("2013-02-13")) {
             return "";
         } else {
             return "1500 kr";
